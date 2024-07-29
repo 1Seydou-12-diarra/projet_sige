@@ -24,10 +24,10 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CorsInterceptor } from './cors.interceptor';
 import { TreeModule } from 'primeng/tree';
 import { ScrollerModule } from 'primeng/scroller';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { EleveComponent } from './eleve/eleve.component';
 
