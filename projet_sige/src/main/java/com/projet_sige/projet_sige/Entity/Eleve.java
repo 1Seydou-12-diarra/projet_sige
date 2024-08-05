@@ -27,78 +27,62 @@ public class Eleve {
     public Eleve() {
     }
 
-    public Eleve( String nom, String prenom, Date date_naissance, String residence_eleve, String matricule) {
-
+    public Eleve( Long id,String nom, String prenom, Date date_naissance, String residence_eleve, String matricule) {
+        this.id =id;
         this.nom = nom;
         this.prenom = prenom;
         this.date_naissance = date_naissance;
         this.residence_eleve = residence_eleve;
         this.matricule = matricule;
     }
-    public void mettreAJour( String prenom,  String residence_eleve, String matricule){
 
-        if(!isBlank(prenom)){
-            this.prenom=prenom;
-
-        }
-        if(!isBlank(residence_eleve)){
-            this.residence_eleve=residence_eleve;
-
-        }
-        if(!isBlank(matricule)){
-            this.matricule=matricule;
-
-        }
-    }
 
     public Long getId() {
         return id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public Date getDate_naissance() {
-        return date_naissance;
-    }
-
-    public String getResidence_eleve() {
-        return residence_eleve;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
     }
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    public Date getDate_naissance() {
+        return date_naissance;
+    }
+
     public void setDate_naissance(Date date_naissance) {
         this.date_naissance = date_naissance;
+    }
+
+    public String getResidence_eleve() {
+        return residence_eleve;
     }
 
     public void setResidence_eleve(String residence_eleve) {
         this.residence_eleve = residence_eleve;
     }
 
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
-    }
-
     public String getMatricule() {
         return matricule;
+    }
 
-
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
     }
 }
 

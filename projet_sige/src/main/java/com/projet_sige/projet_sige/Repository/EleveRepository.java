@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface EleveRepository extends JpaRepository<Eleve,Long> {
+
     Optional<Eleve>findByNom(String nom);
+    Optional<Eleve> findById(Long id);
 }
