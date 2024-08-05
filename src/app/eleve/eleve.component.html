@@ -1,0 +1,143 @@
+<p-toast></p-toast>
+
+<div class="card">
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button (click)="showDialog()" label="Ajouter" icon="pi pi-plus" class="mr-2"></p-button>
+    </div>
+    <div class="p-toolbar-group-right">
+      <span class="p-input-icon-left mb-2 md:mb-0">
+        <i class="pi pi-search"></i>
+        <input type="search" pInputText placeholder="Recherche"
+          (input)="p.filterGlobal($any($event.target).value, 'contains')" />
+      </span>
+    </div>
+  </p-toolbar>
+  <!-- Tableau affichant la liste des personnes  -->
+  <p-table #p [value]="listeEleve" styleClass="p-datatable-striped" [paginator]="true" [rows]="10"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[5, 10, 15]" [globalFilterFields]="['nom']" class="center">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>N°</th>
+        <th pSortableColumn="nom">
+          Nom
+          <p-sortIcon></p-sortIcon>
+        </th>
+        <th>Prenom</th>
+        <th>Dtae de naissance</th>
+        <th>Résidence Elève</th>
+        <th>Matricule</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-eleve let-index="rowIndex">
+      <tr>
+        <td>{{ index + 1 }}</td>
+        <td>{{ eleve.nom | uppercase}}</td>
+        <td>{{ eleve.prenom }}</td>
+        <td>{{ eleve.date_naissance }}</td>
+        <td>{{ eleve.residence_eleve}}</td>
+        <td>{{ eleve.matricule }}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+            (click)="editEleve(eleve)"></button>
+
+          <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success mr-2"
+            (click)="viewEleve(eleve.id)"></button>
+
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+            (click)="deleteEleve(eleve.id)"></button>
+
+        </td>
+
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Formulaire d'ajout ou de modification des infomartionq d'une personne -->
+<p-dialog header="Information Eleve" [(visible)]="visible" [modal]="true" [style]="{ width: '450px'}"
+  styleClass="p-fluid" [draggable]="false">
+  <ng-template pTemplate="content">
+    <br />
+    <div class="p-float-label">
+      <input pInputText id="nom" [(ngModel)]="eleve.nom" required autofocus #nomInput="ngModel" [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }" />
+      <label htmlFor="nom">Nom</label>
+    </div>
+    <br />
+    <br />
+
+    <div class="p-float-label">
+      <input type="texte" pInputText id="prenom" [(ngModel)]="eleve.prenom" required="true" autofocus
+        #prenomsInput="ngModel" [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }" />
+      <label htmlFor="prenom">Prenom</label>
+    </div>
+    <br />
+    <br />
+
+    <div class="p-float-label">
+      <input pInputText type="date" id="date_naissance" [(ngModel)]="eleve.date_naissance" required autofocus
+        #nomInput="ngModel" [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }" />
+      <br />
+
+      <label htmlFor="date_naissance">Date de naissance</label>
+    </div>
+    <br />
+    <br />
+
+    <div class="p-float-label">
+      <input pInputText id="residence_eleve" [(ngModel)]="eleve.residence_eleve" required autofocus #nomInput="ngModel"
+        [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }" />
+      <label htmlFor="residence_eleve"> Résidence de l'élève</label>
+    </div>
+    <br />
+    <br />
+
+    <div class="p-float-label">
+      <input pInputText id="matricule" [(ngModel)]="eleve.matricule" required autofocus #nomInput="ngModel" [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }" />
+      <label htmlFor="matricule"> Matricule</label>
+    </div>
+
+  </ng-template>
+
+  <p-toast></p-toast>
+
+
+  <ng-template pTemplate="footer">
+
+    <button pButton pRipple label="Submit" class="p-button-success" (click)="saveEleve(eleve.id, eleve)"></button>
+  </ng-template>
+</p-dialog>
+
+
+
+
+<!-- Ajoutez d'autres détails selon vos besoins -->
+<p-dialog header="Détails de l'élève" [(visible)]="detailVisible" [modal]="true" [style]="{width: '50vw'}">
+  <div *ngIf="selectedEleve">
+
+    <p><strong>Nom:</strong> {{selectedEleve?.nom }}</p>
+    <p><strong>Prénom:</strong> {{selectedEleve?.prenom}}</p>
+    <p><strong>Date Naissance:</strong> {{selectedEleve?.date_naissance}}</p>
+    <p><strong>Résidence élève:</strong> {{selectedEleve?.residence_eleve}}</p>
+    <p><strong>Matricule:</strong> {{selectedEleve?.matricule}}</p>
+
+  </div>
+  <p-footer>
+    <button pButton label="Fermer" icon="pi pi-times" (click)="detailVisible = false"></button>
+  </p-footer>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '250px'}"></p-confirmDialog>
